@@ -2,10 +2,12 @@ import React, {useState} from "react";
 import "./App.css";
 import {getImageOrVedio} from "./helper";
 
+
 const App = () => {
 	const [input, setInput] = useState("");
 	const [show, setShow] = useState(false);
 	const [output, setOutput] = useState("");
+	const [loading, setLoading] = useState(false);
 	function downloadImage() {
 		let src = output.url;
 		if (!output && !output.url && !output.isImage) {
@@ -40,20 +42,26 @@ const App = () => {
 			/>
 			<button
 				onClick={() => {
+					setShow(false);
+					setLoading(true);
 					getImageOrVedio({link: input})
 						.then((result) => {
 							if (result.error) {
+								setLoading(false);
 								console.error("Line 21 : ", result.error);
 								return;
 							}
+
 							setOutput(result);
+							setLoading(false);
+							setShow(true);
 						})
 						.catch((error) => console.error(error));
-					setShow(true);
 				}}
 			>
 				CHECK URL
 			</button>
+			<div>{loading ? "Loading" : ""}</div>
 			{show ? (
 				<>
 					{output.isImage ? (
