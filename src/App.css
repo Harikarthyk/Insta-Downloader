@@ -1,3 +1,158 @@
-.App {
+* {
+	margin: 0px;
+	padding: 0px;
+	font-family: "Karla", sans-serif;
+}
+img.Header__logo {
+	max-width: 50px;
+	border-radius: 11px;
+	margin-right: 11px;
+}
+
+.Header {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 10px;
+	background: #efa7a7;
+}
+.Header__title {
+	font-weight: bolder;
+	font-size: 20px;
+}
+.App__content {
+	min-height: 85vh;
+	background: #cee9e4;
+}
+.App__content__inputField {
+	display: flex;
+	justify-content: center;
+	padding-top: 25px;
+}
+
+input[type="text"] {
+	width: 35rem;
+	padding: 8px;
+	margin: 0 6px;
+}
+
+button {
+	padding: 5px;
+	width: 12rem;
+	margin-right: 3px;
+	border-radius: 5px;
+	border: 3px solid #73a985;
+	font-weight: bold;
+	cursor: pointer;
+	box-shadow: rgba(0, 0, 0, 0.1) 0px 5px 20px;
+
+	background: #a7e8bd;
+}
+video.videoBox {
+	max-width: 100%;
+	box-shadow: rgba(0, 0, 0, 0.1) -1px 20px 20px;
+	border-radius: 5px;
+}
+
+.App__content__imageVedio {
+	width: 250px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	margin: auto;
+	margin-top: 20px;
+}
+.videoText {
+	width: 100%;
 	text-align: center;
+	margin: 20px;
+}
+.loading {
+	text-align: center;
+	margin: 20px;
+	font-size: 16px;
+	font-weight: bold;
+}
+.Help__title {
+	font-size: 28px;
+	text-align: center;
+	font-weight: bolder;
+	text-decoration: underline;
+	margin: 35px 10px;
+}
+
+.Help__content {
+	padding: 20px;
+	background: white;
+	width: 90%;
+	margin: auto;
+	padding-bottom: 20px;
+	border-radius: 8px;
+}
+
+.Help__content__note {
+	font-size: 17px;
+	margin: 15px 0;
+	color: red;
+}
+.Help__steps__step__title {
+	margin: 15px 0;
+	font-size: 20px;
+}
+
+li {
+	margin: 10px;
+	font-size: 15px;
+}
+
+img.Help_image {
+	display: block;
+	margin: auto;
+	margin-bottom: 16px;
+	/* width: 0%; */
+	margin-top: 14px;
+}
+.bottom {
+	height: 85px;
+}
+.Footer {
+	min-height: 14vh;
+	background: #efa7a7;
+	display: flex;
+	justify-content: center;
+	align-items: flex-end;
+}
+
+.Footer__text {
+	margin-bottom: 12px;
+	cursor: pointer;
+	font-size: 16px;
+}
+.br {
+	width: 70%;
+	height: 4px;
+	background: #efa7a7;
+	margin: auto;
+}
+@media (max-width: 650px) {
+	img.Help_image {
+		border: 1px solid #efa7a7;
+		width: 100%;
+		border-radius: 5px;
+	}
+	.Help__content {
+		padding: 10px;
+	}
+	.App__content__inputField {
+		flex-direction: column;
+	}
+	input[type="text"] {
+		width: auto;
+		margin: 10px 20px;
+	}
+	button {
+		width: auto;
+		margin: 10px 20px;
+	}
 }

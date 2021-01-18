@@ -1,12 +1,15 @@
 import React, {useState} from "react";
 import "./App.css";
+import Footer from "./Components/Footer";
+import Header from "./Components/Header";
+import Help from "./Components/Help";
 import {getImageOrVedio} from "./helper";
-
 
 const App = () => {
 	const [input, setInput] = useState("");
 	const [show, setShow] = useState(false);
 	const [output, setOutput] = useState("");
+	const [error, setError] = useState("");
 	const [loading, setLoading] = useState(false);
 	function downloadImage() {
 		let src = output.url;
@@ -33,57 +36,92 @@ const App = () => {
 	}
 	return (
 		<div className='App'>
-			<h1>Insta Downloader Application </h1>
-			<input
-				type='text'
-				placeholder='Paste the link'
-				value={input}
-				onChange={(e) => setInput(e.target.value)}
-			/>
-			<button
-				onClick={() => {
-					setShow(false);
-					setLoading(true);
-					getImageOrVedio({link: input})
-						.then((result) => {
-							if (result.error) {
-								setLoading(false);
-								console.error("Line 21 : ", result.error);
+			<Header />
+			<div className='App__content'>
+				<div className='App__content__inputField'>
+					<input
+						type='text'
+						placeholder='Paste the link'
+						value={input}
+						onChange={(e) => setInput(e.target.value)}
+					/>
+					<button
+						onClick={() => {
+							if (input.length <= 15) {
+								setError("Paste the proper Link");
 								return;
 							}
+							setShow(false);
+							setLoading(true);
+							getImageOrVedio({link: input})
+								.then((result) => {
+									if (!result) {
+										setLoading(false);
+										setError("Paste the proper Link");
+										console.log("Wrong Link Pasted");
+										return;
+									}
+									if (result.error) {
+										setLoading(false);
+										setError(result.error);
+										console.error("Line 21 : ", result.error);
+										return;
+									}
 
-							setOutput(result);
-							setLoading(false);
-							setShow(true);
-						})
-						.catch((error) => console.error(error));
-				}}
-			>
-				CHECK URL
-			</button>
-			<div>{loading ? "Loading" : ""}</div>
-			{show ? (
-				<>
-					{output.isImage ? (
-						<>
-							<img alt='Paste a Proper link' src={output.url} />
-							<button onClick={downloadImage}>Download Image</button>
-						</>
-					) : (
-						<>
-							<video
-								controls
-								src={output.url}
-								type='video/mp4'
-								className='videoBox'
-							></video>
-							<div>Click on the three dots - download the video </div>
-						</>
-					)}
-				</>
-			) : (
-				""
-			)}
+									setOutput(result);
+									setLoading(false);
+									setError("");
+									setShow(true);
+								})
+								.catch((error) => console.error(error));
+						}}
+					>
+						CHECK URL
+					</button>
+				</div>
+				<div className='loading'>
+					{loading ? "Loading..." : error ? error : ""}
+				</div>
+
+				{show ? (
+					<div className='App__content__imageVedio'>
+						{output.isImage ? (
+							<>
+								<img
+									alt='Paste a Proper link'
+									style={{
+										maxWidth: "105%",
+										boxShadow: "rgba(0, 0, 0, 0.1) 0px 5px 20px",
+										borderRadius: "5px",
+									}}
+									src={output.url}
+								/>
+								<button style={{margin: "20px"}} onClick={downloadImage}>
+									Download Image
+								</button>
+							</>
+						) : (
+							<>
+								<video
+									controls
+									src={output.url}
+									type='video/mp4'
+									className='videoBox'
+								></video>
+								<div className='videoText'>
+									Click on the three dots - click download to Download the vedio
+								</div>
+							</>
+						)}
+					</div>
+				) : (
+					""
+				)}
+				<Help />
+				<div className='bottom'></div>
+			</div>
+
+			<Footer />
 		</div>
 	);
 };

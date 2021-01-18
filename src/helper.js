@@ -1,4 +1,4 @@
-const API = "http://localhost:5050";
+const API = "https://insta-downloader-api.herokuapp.com/";
 export const getImageOrVedio = (input) => {
 	return fetch(`${API}`, {
 		method: "POST",
